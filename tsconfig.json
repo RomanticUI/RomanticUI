@@ -1,0 +1,44 @@
+// {
+//   "compilerOptions": {
+//     "target": "esnext",
+//     "module": "esnext",
+//     "moduleResolution": "node",
+//     "jsx": "react",
+//     "esModuleInterop": true,
+//     "types": ["jest"],
+//     "strict": true,
+//     "skipLibCheck": true,
+//     "declaration": true
+//   }
+// }
+
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "romantic": ["components/index.ts"],
+      "romantic/es/*": ["components/*"],
+      "romantic/lib/*": ["components/*"]
+    },
+    "strictNullChecks": true, // 开启null测试
+    "module": "esnext", // 设置生成代码的模块标准，可以设置为 CommonJS、AMD 和 UMD 等等。
+    "moduleResolution": "node", // 模块解析策略，ts默认用node的解析策略，即相对的方式导入
+    "esModuleInterop": true, // 允许export=导出，由import from 导入
+    "experimentalDecorators": true, // 允许使用装饰器
+    "jsx": "react", // 等效 React.createElement调用
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment",
+    "noUnusedParameters": true, // 检查未使用的函数参数(只提示不报错)
+    "noUnusedLocals": true, // 检查只声明、未使用的局部变量(只提示不报错)
+    "noImplicitAny": true, // 不允许隐式的any类型
+    "target": "es6", // 目标语言的版本
+    "lib": ["DOM","ES2017"], // 引入ES的功能库，比如想在项目中用js中Set，Map等新的数据结构，或promise等，那要在lib中引入es2015
+    "skipLibCheck": true, // 跳过类库检查\
+
+    "allowJs": true, // 允许编译器编译JS，JSX文件
+    //   "strict": true,
+  },
+
+  "include": ["src"],
+  "exclude": ["node_modules", "generators"]
+}
