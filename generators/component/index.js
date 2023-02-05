@@ -31,8 +31,8 @@ module.exports = {
     // 样式文件
     actions.push({
       type: 'add',
-      path: 'src/{{properCase dir}}/style/index.module.scss',
-      templateFile: 'generators/component/component.scss.hbs',
+      path: 'src/{{properCase dir}}/style/index.module.less',
+      templateFile: 'generators/component/component.less.hbs',
     });
 
     // 测试文件
