@@ -12,7 +12,8 @@
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
     "prepublishOnly": "npm run build",
-    "plop": "plop"
+    "plop": "plop",
+    "prepare": "husky install"
   },
   "files": [
     "dist"
@@ -47,6 +48,7 @@
     "dumi": "^2.1.7",
     "father": "^4.0.0-rc.2",
     "gh-pages": "^3.0.0",
+    "husky": "^8.0.3",
     "lint-staged": "^10.0.7",
     "prettier": "^2.2.1",
     "yorkie": "^2.0.0"
