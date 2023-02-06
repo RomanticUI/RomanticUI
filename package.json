@@ -12,7 +12,7 @@
     "test": "umi-test",
     "test:coverage": "umi-test --coverage",
     "prepublishOnly": "npm run build",
-    "plop":"plop"
+    "plop": "plop"
   },
   "files": [
     "dist"
@@ -20,7 +20,8 @@
   "module": "dist/esm/index.js",
   "typings": "dist/esm/index.d.ts",
   "gitHooks": {
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "lint-staged": {
     "*.{js,jsx,less,md,json}": [
@@ -36,6 +37,8 @@
     "react": "^18.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^13.0.0",
     "@types/jest": "^27.0.3",
