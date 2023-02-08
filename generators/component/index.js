@@ -8,17 +8,25 @@ module.exports = {
     {
       type: 'input',
       name: 'dir',
-      message: '请输入 component 文件夹名称!',
-      // validate: (value) => {
-      //     if (/.+/.test(value)) {
-      //         return componentExist(value) ? '组件名已经存在' : true;
-      //     }
-      //     return '请输入 component 文件夹名称';
-      // },
+      message: '请输入 component 文件夹名称:',
+    },
+    {
+      type: 'list',
+      name: 'group',
+      message: '请输入组件类别：',
+      choices: () => {
+        return ['通用', '布局', '导航', '数据录入', '数据展示', '反馈', '其他'].map((type) => ({
+          name: type,
+          value: type,
+          checked: true,
+        }));
+      },
     },
   ],
   actions: (data) => {
-    const { dir } = data;
+    console.log(data);
+    const { dir, group } = data;
+    console.log(group);
     const actions = [];
 
     // 组件入门文件
