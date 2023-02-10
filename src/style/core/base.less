@@ -1,0 +1,10 @@
+// 以romantic开头才会有全局样式的效果
+[class^=~'@{romantic-prefix}-'],
+[class*=~' @{romantic-prefix}-'] {
+  // remove the clear button of a text input control in IE10+
+  &::-ms-clear,
+  input::-ms-clear,
+  input::-ms-reveal {
+    display: none;
+  }
+}
