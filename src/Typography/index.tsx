@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './style/index.module.less';
 
-const Typography: React.FC<> = (props) => {
+const Typography: React.FC = () => {
   useEffect(() => {}, []);
 
   return <div></div>;

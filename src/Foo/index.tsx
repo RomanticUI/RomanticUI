@@ -1,3 +1,9 @@
 import React from 'react';
 
-export default ({ title }: { title: string }) => <h1>{title}</h1>;
+type FooProps = {
+  title: string;
+};
+
+const Foo = ({ title }: FooProps): JSX.Element => <h1>{title}</h1>;
+
+export default Foo;

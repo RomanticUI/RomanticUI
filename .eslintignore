@@ -1,6 +1,4 @@
-**/*.svg
-**/*.ejs
-**/*.html
+commitlint.config.js
 package.json
 .umi
 .umi-production

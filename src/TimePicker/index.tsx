@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './style/index.module.scss';
 
+const TimePicker: React.FC = () => {
+  useEffect(() => {}, []);
 
-const TimePicker : React.FC<> = (props) => {
-
-    useEffect(() => {
-
-    }, []);
-
-    return(
-        <div>
-
-        </div>
-    )
-}
+  return <div></div>;
+};
 
 export default TimePicker;
