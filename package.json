@@ -30,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "classnames": "^2.3.2",
     "lint-deps": "^4.0.0",
     "plop": "^3.1.1",
     "postcss-less": "^6.0.0",
