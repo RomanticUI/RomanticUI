@@ -1,14 +1,5 @@
 import React, { Component } from 'react';
 import './style/index.module.less';
-export interface ProgressBar {
-  // prefixCls 为了以后样式统一设置的 classname
-
-  prefixCls?: string;
-  step?: number;
-  total?: number;
-  showInfo?: boolean;
-  color?: string;
-}
 
 export interface IProgressProps {
   // prefixCls 为了以后样式统一设置的 classname
@@ -99,11 +90,20 @@ class ProgressBar extends Component<IProgressProps> {
       borderRadius: '100px',
     };
 
+    const innerStyle = {
+      position: 'relative',
+      display: 'inline-block',
+      width: '100%',
+      verticalAlign: 'middle',
+      background: '#C0C0C0',
+      borderRadius: '100px',
+    };
+
     progress = (
       <div>
-        <div className={`${prefixCls}-outer`}>
-          <div className={`${prefixCls}-inner`}>
-            <div className={`${prefixCls}-bg`} style={fixBgStyle}>
+        <div className="tiger-progress-outer">
+          <div style={innerStyle}>
+            <div className="tiger-progress-inner-bg" style={fixBgStyle}>
               {progressInfo || null}
             </div>
           </div>

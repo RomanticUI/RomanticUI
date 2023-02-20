@@ -11,9 +11,11 @@ toc: content
 
 ## API
 
-| 属性 | 说明 | 类型 | 默认值 |
-| ---- | ---- | ---- | ------ |
-|      |      |      |        |
+| 属性  | 说明       | 类型   | 默认值 |
+| ----- | ---------- | ------ | ------ |
+| step  | 当前的进度 | int    | 0      |
+| total | 总进度     | int    | -      |
+| color | 颜色       | string | -      |
 
 ## ProgressBar
 
@@ -24,12 +26,16 @@ import React from 'react';
 import { ProgressBar } from 'RomanticUI';
 
 export default () => (
-  <ProgressBar
-    step={5}
-    color={'lightblue'}
-    prefixCls={'tiger-progress'}
-    total={12}
-    showInfo={true}
-  />
+  <div>
+    <p>
+      <ProgressBar step={50} color={'lightblue'} total={100} showInfo={true} />
+    </p>
+    <p>
+      <ProgressBar step={70} color={'green'} total={100} showInfo={true} />
+    </p>
+    <p>
+      <ProgressBar step={80} color={'red'} total={100} showInfo={true} />
+    </p>
+  </div>
 );
 ```
