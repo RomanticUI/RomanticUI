@@ -4,6 +4,7 @@ const judgeIsOverFlow = <T extends HTMLElement>(
   direction: 'row' | 'col' = 'row',
 ) => {
   if (direction === 'row') {
+    console.log(target.current.scrollWidth, target.current.clientWidth);
     return target.current.scrollWidth > target.current.clientWidth;
   } else {
     return target.current.scrollHeight > target.current.clientHeight;

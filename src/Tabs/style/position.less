@@ -6,10 +6,14 @@
   display: flex;
 
   .@{tab-prefix-cls}-nav {
+    display: flex;
+    align-items: center;
     overflow: hidden;
 
     &-wrap {
       display: flex;
+      align-items: center;
+      width: 100%;
     }
   }
 
@@ -50,6 +54,11 @@
     .@{tab-prefix-cls}-nav {
       flex-direction: column;
       margin-right: @romantic-tabs-nav-margin;
+
+      &-wrap {
+        flex-direction: column;
+        height: 100%;
+      }
     }
 
     .@{tab-prefix-cls}-nav-partition-left {
@@ -64,10 +73,15 @@
     .@{tab-prefix-cls}-nav {
       flex-direction: column;
       margin-left: @romantic-tabs-nav-margin;
+
+      &-wrap {
+        flex-direction: column;
+        height: 100%;
+      }
     }
 
     .@{tab-prefix-cls}-nav-partition-right {
-      border-right: @romantic-tabs-nav-partitio-border;
+      border-left: @romantic-tabs-nav-partitio-border;
     }
   }
 }

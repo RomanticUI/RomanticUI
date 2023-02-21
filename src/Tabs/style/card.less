@@ -1,73 +1,46 @@
-@romantic-tabs-label-margin: 32px;
 @romantic-tabs-label-hover-color: #4096ff;
 @romantic-tabs-label-active-color: #1677ff;
 
-.@{tab-prefix-cls} {
-  &-label {
-    white-space: nowrap;
-    border: 1px solid #fff0;
-    transition: all 0.3s;
+.@{tab-prefix-cls}-card {
+  .@{tab-prefix-cls}-label {
+    margin: 0 !important;
+    background-color: rgba(0, 0, 0, 0.02);
+    border: 1px solid #f3f3f3 !important;
+    border-radius: 10px 10px 0 0;
   }
 
-  &-label:hover {
-    color: @romantic-tabs-label-hover-color;
-    cursor: pointer;
-  }
-
-  &-label-disabled {
-    color: rgba(0, 0, 0, 0.25);
-  }
-
-  &-label-disabled:hover {
-    color: rgba(0, 0, 0, 0.25) !important;
-    cursor: not-allowed;
-  }
-
-  &-top {
-    // 边距
-    .@{tab-prefix-cls}-label:not(.@{tab-prefix-cls}-label:first-child) {
-      margin: 0 0 0 @romantic-tabs-label-margin;
-    }
-
+  .@{tab-prefix-cls}-nav-partition-top {
     .@{tab-prefix-cls}-label-active {
       color: @romantic-tabs-label-active-color;
       text-shadow: 0 0 0.25px @romantic-tabs-label-active-color;
+      background-color: #fff;
       border-bottom: 1px solid @romantic-tabs-label-active-color;
     }
   }
 
-  &-bottom {
-    .@{tab-prefix-cls}-label:not(.@{tab-prefix-cls}-label:first-child) {
-      margin: 0 0 0 @romantic-tabs-label-margin;
-    }
-
+  .@{tab-prefix-cls}-nav-partition-bottom {
     .@{tab-prefix-cls}-label-active {
       color: @romantic-tabs-label-active-color;
       text-shadow: 0 0 0.25px @romantic-tabs-label-active-color;
+      background-color: #fff;
       border-top: 1px solid @romantic-tabs-label-active-color;
     }
   }
 
-  &-left {
-    .@{tab-prefix-cls}-label:not(.@{tab-prefix-cls}-label:first-child) {
-      margin: @romantic-tabs-label-margin 0 0;
-    }
-
+  .@{tab-prefix-cls}-nav-partition-left {
     .@{tab-prefix-cls}-label-active {
       color: @romantic-tabs-label-active-color;
       text-shadow: 0 0 0.25px @romantic-tabs-label-active-color;
+      background-color: #fff;
       border-right: 1px solid @romantic-tabs-label-active-color;
     }
   }
 
-  &-right {
-    .@{tab-prefix-cls}-label:not(.@{tab-prefix-cls}-label:first-child) {
-      margin: @romantic-tabs-label-margin 0 0;
-    }
-
+  .@{tab-prefix-cls}-nav-partition-right {
     .@{tab-prefix-cls}-label-active {
       color: @romantic-tabs-label-active-color;
       text-shadow: 0 0 0.25px @romantic-tabs-label-active-color;
+      background-color: #fff;
       border-left: 1px solid @romantic-tabs-label-active-color;
     }
   }

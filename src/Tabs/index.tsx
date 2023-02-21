@@ -8,6 +8,15 @@ import TabItem, { TabItemType } from './TabItem';
 
 export type TabsType = 'line' | 'card' | 'editable-card';
 export type TabsPosition = 'top' | 'right' | 'bottom' | 'left';
+export type TabsDirection = 'row' | 'col';
+export interface SlipProps {
+  length: number;
+  maxLength: number;
+}
+export interface ExtraContentProps {
+  left?: ReactNode;
+  right?: ReactNode;
+}
 
 export interface TabsProps {
   className?: string;
@@ -16,75 +25,119 @@ export interface TabsProps {
   items: TabItemType[];
   tabPosition: TabsPosition;
   centered: boolean; // 是否居中
+  type: 'line' | 'card';
   activeKey?: string;
   defaultActiveKey?: string;
   addIcon: ReactNode;
-
+  tabBarExtraContent: ReactNode | ExtraContentProps; // tab bar 上额外的元素
   onChange?: (activeKey: string) => void; // 切换面板的回调
   onTabClick?: (key: string, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void; // tab 被点击的回调 key对应tabitem的activeKey
 }
 
 const Tabs: React.FC<TabsProps> = (props) => {
-  const {
+  let {
     size: propSize,
     className,
     style,
     items,
     tabPosition = 'top',
     centered = false,
+    type = 'line',
     activeKey,
     defaultActiveKey = items[0].key,
+    tabBarExtraContent,
     onChange,
     onTabClick,
   } = props;
 
   const prefixCls = 'romantic-tabs';
-  const direction = tabPosition === 'top' || tabPosition === 'bottom' ? 'row' : 'col';
-  const [currentKey, setCurrentKey] = useState<string | undefined>(defaultActiveKey); // 默认值为第一个面板
-  const [slipLength, setSlipLength] = useState<number>(0);
+  const direction: TabsDirection =
+    tabPosition === 'top' || tabPosition === 'bottom' ? 'row' : 'col';
 
-  // 获取nav节点
+  const [currentKey, setCurrentKey] = useState<string | undefined>(defaultActiveKey); // 默认值为第一个面板
+  const [slip, setSlip] = useState<SlipProps>({
+    length: 0,
+    maxLength: 0,
+  });
+
+  // 获取scroll节点
   const scrollNav = useRef<HTMLDivElement | null>(null);
 
-  // 绑定滚动事件，阻止页面滚动
-  useEffect(() => {
-    // 判断是否溢出
-    const isOverFlow = judgeIsOverFlow<HTMLDivElement>(
-      scrollNav as React.MutableRefObject<HTMLDivElement>,
-      'row',
-    );
-    if (isOverFlow) {
-      (scrollNav.current as HTMLDivElement).addEventListener(
-        'wheel',
-        (e) => throttleWheel(e, direction),
-        { passive: false },
-      );
-      return () =>
-        (scrollNav.current as HTMLDivElement).removeEventListener(
-          'wheel',
-          (e) => throttleWheel(e, direction),
-          false,
-        );
-    }
-  }, []);
+  // 获取viewNav节点
+  const viewNav = useRef<HTMLDivElement | null>(null);
 
+  // 滚动事件
   const handleWheel = (evnet: WheelEvent) => {
     const { deltaY } = evnet;
-    setSlipLength((slipLength) => {
-      const res = slipLength - deltaY;
-      console.log('scrollWidth', scrollNav.current?.scrollWidth, res);
-      const max = scrollNav.current?.scrollWidth || 0;
-      if (res <= -max) {
-        return -max;
+
+    setSlip((slip) => {
+      console.log('修改', slip.length);
+      const res = slip.length - deltaY;
+      if (res <= -slip.maxLength) {
+        return {
+          ...slip,
+          length: -slip.maxLength,
+        };
       } else if (res >= 0) {
-        return 0;
+        return {
+          ...slip,
+          length: 0,
+        };
       } else {
-        return res;
+        return {
+          ...slip,
+          length: res,
+        };
       }
     });
   };
 
   const throttleWheel = throttle(handleWheel, 50);
+
+  // 绑定原生滚动事件，阻止页面滚动
+  useEffect(() => {
+    // 判断是否溢出
+    const isOverFlow = judgeIsOverFlow<HTMLDivElement>(
+      scrollNav as React.MutableRefObject<HTMLDivElement>,
+      direction,
+    );
+    if (isOverFlow) {
+      (viewNav.current as HTMLDivElement).addEventListener('wheel', (e) => throttleWheel(e), {
+        passive: false,
+      });
+
+      // 设置最长滚动长度
+      if (direction === 'row') {
+        console.log(
+          '设置',
+          (scrollNav.current?.scrollWidth as number) - (scrollNav.current?.clientWidth as number),
+        );
+        setSlip((slip) => {
+          return {
+            ...slip,
+            maxLength:
+              (scrollNav.current?.scrollWidth as number) -
+              (scrollNav.current?.clientWidth as number),
+          };
+        });
+      } else {
+        setSlip((slip) => {
+          return {
+            ...slip,
+            maxLength:
+              (scrollNav.current?.scrollHeight as number) -
+              (scrollNav.current?.clientHeight as number),
+          };
+        });
+      }
+      return () =>
+        (viewNav.current as HTMLDivElement).removeEventListener(
+          'wheel',
+          (e) => throttleWheel(e),
+          false,
+        );
+    }
+  }, []);
 
   /**
    *
@@ -106,7 +159,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
   };
 
   /**
-   *  @description 渲染标签 ， 由li标签组成
+   *  @description 渲染标签
    */
   const renderTabItemLabel = () =>
     items.map((value: TabItemType) => {
@@ -151,9 +204,10 @@ const Tabs: React.FC<TabsProps> = (props) => {
       {(contextSize) => {
         const size = propSize !== undefined ? propSize : contextSize;
         return (
-          <nav
+          <div
             style={style}
             className={classNames(`${prefixCls}`, {
+              [`${prefixCls}-${type}`]: type,
               [`${prefixCls}-${size}`]: size,
               [`${prefixCls}-${tabPosition}`]: true,
               // 外联样式
@@ -161,28 +215,33 @@ const Tabs: React.FC<TabsProps> = (props) => {
             })}
           >
             <div
+              ref={viewNav}
               className={classNames(`${prefixCls}-nav`, {
                 [`${prefixCls}-nav-partition-${tabPosition}`]: tabPosition,
               })}
             >
               <div
+                ref={scrollNav}
                 className={classNames(`${prefixCls}-nav-wrap`, {
                   [`${prefixCls}-nav-centered`]: centered,
                 })}
                 style={{
                   transform:
                     direction === 'row'
-                      ? `translate(${slipLength}px,0)`
-                      : `translate(0,${slipLength}px)`,
+                      ? `translate(${slip.length}px,0)`
+                      : `translate(0,${slip.length}px)`,
                 }}
-                ref={scrollNav}
               >
+                {(tabBarExtraContent as any)?.left ? (
+                  <div>{(tabBarExtraContent as any)?.left || ''}</div>
+                ) : null}
                 {renderTabItemLabel()}
               </div>
+              {<div>{(tabBarExtraContent as any)?.right || tabBarExtraContent}</div>}
             </div>
             {/* 展示的内容 */}
             <div>{renderItemContent()}</div>
-          </nav>
+          </div>
         );
       }}
     </SizeContext.Consumer>

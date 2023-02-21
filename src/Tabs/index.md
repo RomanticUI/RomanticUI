@@ -95,9 +95,11 @@ export default () => (
 );
 ```
 
-### 图标
-
 ### 滑动
+
+针对滑动进行节流处理，减少性能损耗
+
+左右滑动
 
 ```tsx
 import { Tabs } from 'RomanticUI';
@@ -118,6 +120,158 @@ export default () => (
     })}
   />
 );
+```
+
+上下滑动
+
+```tsx
+import { Tabs } from 'RomanticUI';
+
+export default () => (
+  <Tabs
+    defaultActiveKey="1"
+    tabPosition={'left'}
+    style={{ height: 220 }}
+    items={new Array(30).fill(null).map((_, i) => {
+      const id = String(i);
+      return {
+        label: `Tab-${id}`,
+        key: id,
+        disabled: i === 28,
+        children: `Content of tab ${id}`,
+      };
+    })}
+  />
+);
+```
+
+### 附加内容
+
+```tsx
+import { Tabs } from 'RomanticUI';
+
+export default () => {
+  const items = new Array(3).fill(null).map((_, i) => {
+    const id = String(i + 1);
+    return {
+      label: `Tab ${id}`,
+      key: id,
+      children: `Content of tab ${id}`,
+    };
+  });
+  const operations = <button>Extra Action</button>;
+  const OperationsSlot = {
+    left: <button>Left Extra Action</button>,
+    right: <button>Right Extra Action</button>,
+  };
+  return (
+    <>
+      <Tabs tabBarExtraContent={operations} items={items} />
+      <br />
+      <br />
+      <div>You can also specify its direction or both side</div>
+      <br />
+      <br />
+      <Tabs tabBarExtraContent={OperationsSlot} items={items} />
+    </>
+  );
+};
+```
+
+### 大小
+
+```tsx
+import { useState } from 'react';
+import { Tabs } from 'RomanticUI';
+
+export default () => {
+  const [size, setSize] = useState('small');
+  const handleClick = (e) => {
+    setSize(e.target.defaultValue);
+  };
+  return (
+    <>
+      <input type="button" value="small" onClick={handleClick}></input>
+      <input type="button" value="middle" onClick={handleClick}></input>
+      <input type="button" value="large" onClick={handleClick}></input>
+      <Tabs
+        defaultActiveKey="1"
+        size={size}
+        style={{ marginBottom: 32 }}
+        items={new Array(3).fill(null).map((_, i) => {
+          const id = String(i + 1);
+          return {
+            label: `Tab ${id}`,
+            key: id,
+            children: `Content of tab ${id}`,
+          };
+        })}
+      />
+    </>
+  );
+};
+```
+
+### 位置
+
+```tsx
+import { useState } from 'react';
+import { Tabs } from 'RomanticUI';
+
+type TabPosition = 'left' | 'right' | 'top' | 'bottom';
+
+export default () => {
+  const [tabPosition, setTabPosition] = useState('left');
+  const changeTabPosition = (e: RadioChangeEvent) => {
+    setTabPosition(e.target.value);
+  };
+  return (
+    <>
+      <input type="button" value="top" onClick={changeTabPosition}></input>
+      <input type="button" value="bottom" onClick={changeTabPosition}></input>
+      <input type="button" value="left" onClick={changeTabPosition}></input>
+      <input type="button" value="right" onClick={changeTabPosition}></input>
+      <Tabs
+        tabPosition={tabPosition}
+        items={new Array(3).fill(null).map((_, i) => {
+          const id = String(i + 1);
+          return {
+            label: `Tab ${id}`,
+            key: id,
+            children: `Content of Tab ${id}`,
+          };
+        })}
+      />
+    </>
+  );
+};
+```
+
+### 卡片式标签
+
+```tsx
+import { Tabs } from 'RomanticUI';
+
+export default () => {
+  const onChange = (key: string) => {
+    console.log(key);
+  };
+
+  return (
+    <Tabs
+      onChange={onChange}
+      type="card"
+      items={new Array(3).fill(null).map((_, i) => {
+        const id = String(i + 1);
+        return {
+          label: `Tab ${id}`,
+          key: id,
+          children: `Content of Tab Pane ${id}`,
+        };
+      })}
+    />
+  );
+};
 ```
 
 ## API
