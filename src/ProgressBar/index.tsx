@@ -138,7 +138,7 @@ class ProgressBar extends Component<IProgressProps> {
     const renderRightRate = (rate: number) => {
       if (rate < 50) {
         let value = {
-          transform: 'rotate' + '(' + 3.6 * rate + 'deg' + ')',
+          transform: 'rotate' + '(' + 3.6 * rate + 'deg)',
         };
         return value;
       } else {
@@ -152,7 +152,7 @@ class ProgressBar extends Component<IProgressProps> {
     const renderLeftRate = (rate: number) => {
       if (rate >= 50) {
         let value = {
-          transform: 'rotate' + '(' + 3.6 * (rate - 50) + 'deg' + ')',
+          transform: 'rotate' + '(' + 3.6 * (rate - 50) + 'deg)',
         };
         return value;
       }

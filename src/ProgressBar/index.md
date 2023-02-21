@@ -64,13 +64,13 @@ import { ProgressBar } from 'RomanticUI';
 export default () => (
   <div>
     <p>
-      <ProgressBar isCircle={true} step={50} color={'lightblue'} total={100} showInfo={true} />
+      <ProgressBar isCircle={true} step={20} color={'lightblue'} total={100} showInfo={true} />
     </p>
     <p>
-      <ProgressBar isCircle={true} step={70} color={'lightblue'} total={100} showInfo={true} />
+      <ProgressBar isCircle={true} step={40} color={'lightblue'} total={100} showInfo={true} />
     </p>
     <p>
-      <ProgressBar isCircle={true} step={80} color={'lightblue'} total={100} showInfo={true} />
+      <ProgressBar isCircle={true} step={45} color={'lightblue'} total={100} showInfo={true} />
     </p>
   </div>
 );
