@@ -27,15 +27,11 @@ import { ProgressBar } from 'RomanticUI';
 
 export default () => (
   <div>
-    <p>
-      <ProgressBar step={50} color={'lightblue'} total={100} showInfo={true} />
-    </p>
-    <p>
-      <ProgressBar step={70} color={'green'} total={100} showInfo={true} />
-    </p>
-    <p>
-      <ProgressBar step={80} color={'red'} total={100} showInfo={true} />
-    </p>
+    <ProgressBar step={50} color={'lightblue'} total={100} showInfo={true} />
+
+    <ProgressBar step={70} color={'green'} total={100} showInfo={true} />
+
+    <ProgressBar step={80} color={'red'} total={100} showInfo={true} />
   </div>
 );
 ```

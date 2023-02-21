@@ -56,7 +56,7 @@ class ProgressBar extends Component<IProgressProps> {
 
     /**
      * percent 百分比
-     * text tip 显示文字
+     * text  显示文字
      * progressInfo 提示模块
      * porgress 主模块
      */
@@ -66,20 +66,9 @@ class ProgressBar extends Component<IProgressProps> {
     let progress;
 
     percent = percentDeal(step, total);
-    console.log('percent', percent);
-    // percent: 20
 
     text = parseIntPrecent(validProgress(percent));
     console.log('text', text);
-    // text: 20%
-
-    if (showInfo) {
-      progressInfo = (
-        <div className={`${prefixCls}-show-info`}>
-          <span className={`${prefixCls}-text`}>{text}</span>
-        </div>
-      );
-    }
 
     // color defalutProps 定义默认的颜色
     // 前面&-bg 设置 relative 定位
@@ -88,6 +77,18 @@ class ProgressBar extends Component<IProgressProps> {
       height: '12px',
       background: color,
       borderRadius: '100px',
+    };
+
+    const textStyle = {
+      display: 'inline-block',
+      width: '2em',
+      marginLeft: '8px',
+      fontSize: '1em',
+      lineHeight: 3,
+      whiteSpace: 'nowrap',
+      textAlign: 'left',
+      verticalAlign: 'middle',
+      wordBreak: 'normal',
     };
 
     const innerStyle = {
@@ -99,23 +100,32 @@ class ProgressBar extends Component<IProgressProps> {
       borderRadius: '100px',
     };
 
+    const outnerStyle = {
+      display: 'inline-block',
+      width: '100%',
+      marginTop: '30px',
+      marginRight: 0,
+      paddingRight: 0,
+    };
+    if (showInfo) {
+      progressInfo = (
+        <div>
+          <span style={textStyle}>{text}</span>
+        </div>
+      );
+    }
+
     progress = (
       <div>
-        <div className="tiger-progress-outer">
+        <div style={outnerStyle}>
           <div style={innerStyle}>
-            <div className="tiger-progress-inner-bg" style={fixBgStyle}>
-              {progressInfo || null}
-            </div>
+            <div style={fixBgStyle}>{progressInfo || null}</div>
           </div>
         </div>
       </div>
     );
 
-    return (
-      <div {...restProps} className="tiger-progress">
-        {progress}
-      </div>
-    );
+    return <div {...restProps}>{progress}</div>;
   }
 }
 export default ProgressBar;
