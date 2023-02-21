@@ -12,11 +12,11 @@ toc: content
 ## API
 
 | 属性      | 说明           | 类型            | 默认值 |
-| --------- | -------------- | --------------- | ------ | --- |
+| --------- | -------------- | --------------- | ------ |
 | className | --             | string          | --     |
 | AvatarImg | 设置头像的值   | string          | --     |
 | size      | 设置头像的大小 | number          | 40px   |
-| shape     | 指定头像的形状 | circle          | square | --  |
+| shape     | 指定头像的形状 | circle          | square |
 | children  | --             | React.ReactNode | --     |
 
 ## 代码演示
