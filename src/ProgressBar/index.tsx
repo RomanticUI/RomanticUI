@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './style/index.module.less';
+import './style/index.less';
 
 export interface IProgressProps {
   // prefixCls 为了以后样式统一设置的 classname
@@ -9,10 +9,29 @@ export interface IProgressProps {
   total?: number;
   showInfo?: boolean;
   color?: string;
+  isSmall?: boolean;
+  isCircle?: boolean;
 }
 
 /**
- * @desc  处理 progressNumber
+ * bin 处理isSmall
+ */
+const validIsSmall = (isSmall: boolean | undefined) => {
+  if (isSmall) {
+    return true;
+  }
+};
+
+/**
+ * bin 处理isCircle
+ */
+const validIsCircle = (isCircle: boolean | undefined) => {
+  if (isCircle) {
+    return true;
+  }
+};
+/**
+ * bin  处理 progressNumber
  */
 const validProgress = (progress: number | undefined) => {
   //当你的参数定义了 number 等类型，你必须对 !progress 的时候处理，不然 ts 会提示你错误。
@@ -26,7 +45,7 @@ const validProgress = (progress: number | undefined) => {
 };
 
 /**
- * @desc 除法处理成0-100的整数
+ * @bin 除法处理成0-100的整数
  * @param step
  * @param total
  */
@@ -52,7 +71,7 @@ class ProgressBar extends Component<IProgressProps> {
   render() {
     // 把需要的值先从 this.props 中取出来
     // restProps 扩充参数用
-    const { prefixCls, step, total, showInfo, color, ...restProps } = this.props;
+    const { prefixCls, step, total, isSmall, isCircle, showInfo, color, ...restProps } = this.props;
 
     /**
      * percent 百分比
@@ -64,10 +83,12 @@ class ProgressBar extends Component<IProgressProps> {
     let text;
     let progressInfo;
     let progress;
-
+    let small;
+    let circle;
     percent = percentDeal(step, total);
-
+    small = validIsSmall(isSmall);
     text = parseIntPrecent(validProgress(percent));
+    circle = validIsCircle(isCircle);
     console.log('text', text);
 
     // color defalutProps 定义默认的颜色
@@ -102,7 +123,7 @@ class ProgressBar extends Component<IProgressProps> {
 
     const outnerStyle = {
       display: 'inline-block',
-      width: '100%',
+      width: small ? '50%' : '100%',
       marginTop: '30px',
       marginRight: 0,
       paddingRight: 0,
@@ -114,14 +135,47 @@ class ProgressBar extends Component<IProgressProps> {
         </div>
       );
     }
+    const renderRightRate = (rate: number) => {
+      if (rate < 50) {
+        let value = {
+          transform: 'rotate' + '(' + 3.6 * rate + 'deg' + ')',
+        };
+        return value;
+      } else {
+        let value = {
+          transform: 'rotate(0);border-color: #54c4fd',
+        };
+        return value;
+      }
+    };
+
+    const renderLeftRate = (rate: number) => {
+      if (rate >= 50) {
+        let value = {
+          transform: 'rotate' + '(' + 3.6 * (rate - 50) + 'deg' + ')',
+        };
+        return value;
+      }
+    };
 
     progress = (
       <div>
-        <div style={outnerStyle}>
-          <div style={innerStyle}>
-            <div style={fixBgStyle}>{progressInfo || null}</div>
+        {isCircle ? (
+          <div className="circle">
+            <div className="circle_left ab" style={renderLeftRate(percent)}></div>
+            <div className="circle_right ab" style={renderRightRate(percent)}></div>
+            <div className="circle_text">
+              <span className="name"></span>
+              <span className="value">{percent + '%'}</span>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div style={outnerStyle}>
+            <div style={innerStyle}>
+              <div style={fixBgStyle}>{progressInfo || null}</div>
+            </div>
+          </div>
+        )}
       </div>
     );
 
