@@ -70,7 +70,7 @@ export default () => (
       <ProgressBar isCircle={true} step={40} color={'lightblue'} total={100} showInfo={true} />
     </p>
     <p>
-      <ProgressBar isCircle={true} step={45} color={'lightblue'} total={100} showInfo={true} />
+      <ProgressBar isCircle={true} step={80} color={'lightblue'} total={100} showInfo={true} />
     </p>
   </div>
 );

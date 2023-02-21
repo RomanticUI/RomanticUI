@@ -143,7 +143,8 @@ class ProgressBar extends Component<IProgressProps> {
         return value;
       } else {
         let value = {
-          transform: 'rotate(0);border-color: #54c4fd',
+          transform: 'rotate(0);',
+          borderColor: '#54c4fd',
         };
         return value;
       }
