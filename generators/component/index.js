@@ -39,7 +39,7 @@ module.exports = {
     // 样式文件
     actions.push({
       type: 'add',
-      path: 'src/{{properCase dir}}/style/index.less',
+      path: 'src/{{properCase dir}}/style/index.module.less',
       templateFile: 'generators/component/component.less.hbs',
     });
 
