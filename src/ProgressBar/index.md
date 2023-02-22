@@ -103,10 +103,10 @@ export default () => {
 
 ## API
 
-| 属性     | 说明             | 类型    | 默认值  |
-| -------- | ---------------- | ------- | ------- |
-| percent  | 当前的进度       | int     | 0       |
-| showinfo | 是否显示进度信息 | boolean | false   |
-| color    | 颜色             | string  | -       |
-| isSmall  | 是否短进度条     | boolean | false   |
-| isCircle | 是否圆形         | boolean | - false |
+| 属性     | 说明             | 类型    | 默认值 |
+| -------- | ---------------- | ------- | ------ |
+| percent  | 当前的进度       | int     | 0      |
+| showinfo | 是否显示进度信息 | boolean | false  |
+| color    | 颜色             | string  | -      |
+| isSmall  | 是否短进度条     | boolean | false  |
+| isCircle | 是否圆形         | boolean | false  |
