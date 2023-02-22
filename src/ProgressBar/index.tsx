@@ -1,20 +1,38 @@
 import React, { Component } from 'react';
-import './style/index.module.less';
+import './style/index.less';
 
 export interface IProgressProps {
   // prefixCls 为了以后样式统一设置的 classname
 
   prefixCls?: string;
-  step?: number;
-  total?: number;
+  percent?: number;
   showInfo?: boolean;
   color?: string;
+  isSmall?: boolean;
+  isCircle?: boolean;
 }
 
 /**
- * @desc  处理 progressNumber
+ * bin 处理isSmall
  */
-const validProgress = (progress: number | undefined) => {
+const validIsSmall = (isSmall: boolean | undefined) => {
+  if (isSmall) {
+    return true;
+  }
+};
+
+/**
+ * bin 处理isCircle
+ */
+const validIsCircle = (isCircle: boolean | undefined) => {
+  if (isCircle) {
+    return true;
+  }
+};
+/**
+ * bin  处理 progressNumber
+ */
+const validPercent = (progress: number | undefined) => {
   //当你的参数定义了 number 等类型，你必须对 !progress 的时候处理，不然 ts 会提示你错误。
   if (!progress || progress < 0) {
     return 0;
@@ -23,19 +41,6 @@ const validProgress = (progress: number | undefined) => {
   }
 
   return progress;
-};
-
-/**
- * @desc 除法处理成0-100的整数
- * @param step
- * @param total
- */
-const percentDeal = (step: number | undefined, total: number | undefined) => {
-  if (!step || !total) {
-    return 0;
-  }
-
-  return (step / total) * 100;
 };
 
 /**
@@ -52,7 +57,7 @@ class ProgressBar extends Component<IProgressProps> {
   render() {
     // 把需要的值先从 this.props 中取出来
     // restProps 扩充参数用
-    const { prefixCls, step, total, showInfo, color, ...restProps } = this.props;
+    const { prefixCls, percent, isSmall, isCircle, showInfo, color, ...restProps } = this.props;
 
     /**
      * percent 百分比
@@ -60,14 +65,16 @@ class ProgressBar extends Component<IProgressProps> {
      * progressInfo 提示模块
      * porgress 主模块
      */
-    let percent;
+    let mypercent;
     let text;
     let progressInfo;
     let progress;
-
-    percent = percentDeal(step, total);
-
-    text = parseIntPrecent(validProgress(percent));
+    let small;
+    let circle;
+    mypercent = validPercent(percent);
+    small = validIsSmall(isSmall);
+    text = parseIntPrecent(mypercent);
+    circle = validIsCircle(isCircle);
     console.log('text', text);
 
     // color defalutProps 定义默认的颜色
@@ -102,7 +109,7 @@ class ProgressBar extends Component<IProgressProps> {
 
     const outnerStyle = {
       display: 'inline-block',
-      width: '100%',
+      width: small ? '50%' : '100%',
       marginTop: '30px',
       marginRight: 0,
       paddingRight: 0,
@@ -110,18 +117,52 @@ class ProgressBar extends Component<IProgressProps> {
     if (showInfo) {
       progressInfo = (
         <div>
-          <span style={textStyle}>{text}</span>
+          <span style={textStyle}>{text === '100%' ? 'Done ' : text}</span>
         </div>
       );
     }
+    const renderRightRate = (rate: number) => {
+      if (rate < 50) {
+        let value = {
+          transform: 'rotate' + '(' + 3.6 * rate + 'deg)',
+        };
+        return value;
+      } else {
+        let value = {
+          transform: 'rotate(0);',
+          borderColor: '#54c4fd',
+        };
+        return value;
+      }
+    };
+
+    const renderLeftRate = (rate: number) => {
+      if (rate >= 50) {
+        let value = {
+          transform: 'rotate' + '(' + 3.6 * (rate - 50) + 'deg)',
+        };
+        return value;
+      }
+    };
 
     progress = (
       <div>
-        <div style={outnerStyle}>
-          <div style={innerStyle}>
-            <div style={fixBgStyle}>{progressInfo || null}</div>
+        {circle ? (
+          <div className="circle">
+            <div className="circle_left ab" style={renderLeftRate(percent)}></div>
+            <div className="circle_right ab" style={renderRightRate(percent)}></div>
+            <div className="circle_text">
+              <span className="name"></span>
+              <span className="value">{percent === 100 ? 'done' : percent + '%'}</span>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div style={outnerStyle}>
+            <div style={innerStyle}>
+              <div style={fixBgStyle}>{progressInfo || null}</div>
+            </div>
+          </div>
+        )}
       </div>
     );
 

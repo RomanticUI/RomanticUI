@@ -1,0 +1,37 @@
+@tabs-title-font-size-sm: 14px;
+@tabs-horizontal-padding-sm: 8px;
+
+@tabs-title-font-size-md: 17px;
+@tabs-horizontal-padding-md: 9px;
+
+@tabs-title-font-size-lg: 20px;
+@tabs-horizontal-padding-lg: 10px;
+
+.@{tab-prefix-cls} {
+  &-small {
+    > .@{tab-prefix-cls}-nav {
+      .@{tab-prefix-cls}-label {
+        padding: @tabs-horizontal-padding-sm;
+        font-size: @tabs-title-font-size-sm;
+      }
+    }
+  }
+
+  &-middle {
+    > .@{tab-prefix-cls}-nav {
+      .@{tab-prefix-cls}-label {
+        padding: @tabs-horizontal-padding-md;
+        font-size: @tabs-title-font-size-md;
+      }
+    }
+  }
+
+  &-large {
+    > .@{tab-prefix-cls}-nav {
+      .@{tab-prefix-cls}-label {
+        padding: @tabs-horizontal-padding-lg;
+        font-size: @tabs-title-font-size-lg;
+      }
+    }
+  }
+}
