@@ -234,14 +234,90 @@ export default () => (
 );
 ```
 
+### Menu 模式
+
+可设置水平或垂直菜单
+
+```tsx
+import { AllItems, Menu } from 'RomanticUI';
+const item: AllItems = [
+  {
+    label: 'Navigation One',
+    optionKey: 'mail',
+  },
+  {
+    label: 'Navigation Two',
+    optionKey: 'app',
+    children: [
+      {
+        label: 'Option 1',
+        optionKey: 'setting:1',
+      },
+      {
+        label: 'Option 2',
+        optionKey: 'setting:2',
+      },
+      {
+        label: 'Option 3',
+        optionKey: 'setting:3',
+      },
+    ],
+  },
+  {
+    label: 'Navigation Three - Submenu',
+    optionKey: 'SubMenu',
+    children: [
+      {
+        type: 'group',
+        label: 'Item 1',
+        children: [
+          {
+            label: 'Option 4',
+            optionKey: 'setting:4',
+          },
+          {
+            label: 'Option 5',
+            optionKey: 'setting:5',
+          },
+        ],
+      },
+      {
+        type: 'group',
+        label: 'Item 2',
+        children: [
+          {
+            label: 'Option 6',
+            optionKey: 'setting:6',
+          },
+          {
+            label: 'Option 7',
+            optionKey: 'setting:7',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'alipay',
+    optionKey: 'alipay',
+  },
+];
+export default () => (
+  <div>
+    <Menu items={item} mode="vertical" theme="night"></Menu>
+  </div>
+);
+```
+
 ## API
 
 ### Menu
 
-| 属性  | 说明           | 类型               | 默认值  |
-| ----- | -------------- | ------------------ | ------- |
-| items | 设置 Menu 内容 | AllItems           | null    |
-| theme | 设置 Menu 主题 | "light" \| "night" | "light" |
+| 属性  | 说明                       | 类型                       | 默认值     |
+| ----- | -------------------------- | -------------------------- | ---------- |
+| items | 设置 Menu 内容             | AllItems                   | null       |
+| theme | 设置 Menu 主题             | "light" \| "night"         | "light"    |
+| mode  | 设置 Menu 模式，水平或垂直 | "vertical" \| "horizontal" | "vertical" |
 
 ### items
 

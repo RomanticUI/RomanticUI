@@ -12,7 +12,12 @@ interface SingleItem {
 
 type AllItems = Array<SingleItem>;
 
-type MenuProps = { mode?: string; items: AllItems; isTop?: boolean; theme?: 'light' | 'night' };
+type MenuProps = {
+  mode?: 'vertical' | 'horizontal';
+  items: AllItems;
+  isTop?: boolean;
+  theme?: 'light' | 'night';
+};
 
 const SubMenu: React.FC<SingleItem> = ({
   label,
@@ -23,12 +28,6 @@ const SubMenu: React.FC<SingleItem> = ({
   ...others
 }: SingleItem) => {
   const [sonCheck, setSoncheck] = useState<boolean>(false);
-  //   /* 子组件被点击后通知父组件——submenu */
-  //   (() => {
-  //     if (handleSonCheck) {
-  //       sonCheck! ? handleSonCheck!(true) : handleSonCheck!(false);
-  //     }
-  //   })();
 
   /* 使用ref绑定span */
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -37,17 +36,28 @@ const SubMenu: React.FC<SingleItem> = ({
     <Consumer>
       {(value) => {
         return (
-          /* 判断是否是禁用样式 */
-          <li key={optionKey} className={disable ? 'disable' : ''}>
+          /* 判断是否是禁用样式 是否为group */
+          <li
+            key={optionKey}
+            className={
+              disable
+                ? type == 'group'
+                  ? 'disable group'
+                  : 'disable'
+                : type == 'group'
+                ? ' group'
+                : ''
+            }
+          >
             {/* 如果是disable 生成无交互元素 */}
 
             {disable ? (
-              <div className={type == 'group' ? 'main group' : 'main'}>
+              <div className="main">
                 <span>{label}</span>
               </div>
             ) : (
               <div
-                className={type == 'group' ? 'main group' : 'main'}
+                className="main"
                 onClick={() => {
                   value.changeKey_Sub!(optionKey!);
                 }}
@@ -102,12 +112,6 @@ const MenuItem: React.FC<SingleItem> = (props) => {
   return (
     <Consumer>
       {(value) => {
-        // console.log(value);
-        // console.log(key);
-        // /* 如果当前MenuItem的optionKey不是被点击的keyCked，那么让父SubMenu处于未激活状态 */
-        // if (optionKey != value.keyCked && handleSonCheck) {
-        //   handleSonCheck!(false);
-        // }
         return (
           /* 如果是disable 生成无交互元素 */
           disable ? (
@@ -146,25 +150,19 @@ const Menu: React.FC<MenuProps> = ({
   items,
   isTop = true,
   theme = 'light',
+  mode = 'horizontal',
   ...others
 }: MenuProps) => {
-  //   const item: MenuProps = [
-  //     { label: 'anc', key: 'aaa', childern: [{ label: 'anc', key: 'aaa' }] },
-  //     { label: 'anc', key: 'aaa', childern: [{ label: 'anc', key: 'aaa' }] },
-  //   ];
-
   useEffect(() => {}, []);
 
   const [keyCked_Item, changeKey_Item] = useState('');
   const [keyCked_Sub, changeKey_Sub] = useState('');
 
-  /* 根据theme得到主题样式 */
-  //   const themeStyle = theme == "light" ? theme_light : theme_night;
-
   return (
     <Provider value={{ keyCked_Item, changeKey_Item, keyCked_Sub, changeKey_Sub, theme }}>
       <div className="MenuBox main">
-        <ul className={'topUl' + ' ' + theme}>
+        {/* Menu模式 以及Menu主题 */}
+        <ul className={'subUl' + ' ' + theme + ' ' + mode + ' ' + 'top'}>
           {items.map((curr, index) => {
             // console.log({ ...curr });
             return <SubMenu {...curr} />;
@@ -173,18 +171,6 @@ const Menu: React.FC<MenuProps> = ({
       </div>
     </Provider>
   );
-};
-
-const theme_night = {
-  backcolor: 'rgb(4,16,37)',
-  clickedFontClor: 'rgb(209,217,224)',
-  clickedBackClor: 'rgb(22,121,249)',
-};
-
-const theme_light = {
-  backcolor: 'rgb(0,0,0)',
-  clickedFontClor: 'rgba(102,156,220,0.4)',
-  clickedBackClor: 'rgb(57, 121, 207)',
 };
 
 export default Menu;

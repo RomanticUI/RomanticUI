@@ -13,7 +13,10 @@
   }
   span {
     display: inline-block;
-    width: 100%;
+    width: auto;
+  }
+  div {
+    width: auto;
   }
 }
 
@@ -23,7 +26,7 @@
     width: auto;
     // flex-grow: 1;
     height: auto;
-    padding: 0 16px;
+    padding: 0 8px;
     line-height: 45px;
     > div {
       width: 100%;
@@ -32,11 +35,21 @@
   }
 }
 
-.topUl {
+.MenuBox {
+  width: auto;
+}
+
+/* SubMenu并且horizontal */
+.subUl.horizontal {
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
+  width: auto;
   margin: 0;
   padding: 0;
+  .subUl {
+    width: 100%;
+  }
 
   //topUl下的首个Menu要绝对定位
   > li {
@@ -69,27 +82,92 @@
   }
 }
 
-/* ItemLi 悬浮变色 */
-.ItemLi {
+/* SubMenu并且top并且vertical */
+.subUl {
+  width: 200px;
+}
+
+/* SubMenu并且vertical*/
+.subUl.vertical.top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 300px;
+
+  margin: 0;
+  padding: 0;
+
+  span {
+    width: 100%;
+  }
+
+  //topUl下的首个Menu要绝对定位
+  > li {
+    width: 100%;
+    > div {
+      //子绝父相
+      position: relative;
+      > span {
+        position: relative;
+        width: 100%;
+        &::after {
+          position: absolute;
+          top: 0;
+          right: 10px;
+          content: '>';
+        }
+      }
+      > ul {
+        position: absolute;
+        top: 0px;
+        left: 105%;
+        z-index: 1;
+        //隐藏
+        transform: scale(-0);
+        opacity: 0;
+        transition: ease-in-out 0.2s;
+      }
+
+      > div {
+        height: auto;
+        color: bisque;
+      }
+      &:hover {
+        > ul {
+          transform: scale(1, 1);
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+/* 项目 悬浮变色 */
+.subUl {
   border-radius: 3px;
-  &:hover {
+  > li:hover {
     background-color: rgba(165, 165, 165, 0.3);
   }
 }
 
 //二级menu样式：submenu
 .subUl {
-  display: flex;
-  flex-direction: column;
   padding: 0;
 }
 
 /* group类型 */
 .group {
-  > span {
-    display: flex;
-    justify-content: flex-start;
-    color: rgba(138, 138, 138, 0.8);
+  > div {
+    width: 100% !important;
+    > span {
+      color: rgba(138, 138, 138, 0.8);
+    }
+  }
+
+  /* 让group下的subUl适应父元素大小 */
+  .subUl {
+    width: 100% !important;
   }
 }
 
@@ -103,47 +181,73 @@
   background-color: rgb(4, 16, 37);
   .subSpanClicked {
     color: white;
+    &::after {
+      color: white;
+    }
   }
-  /* night下悬浮无色 */
+
+  /* group li悬浮无效果 */
+  .group:hover {
+    background-color: rgb(4, 16, 37);
+  }
+
   .ItemLi {
-    background-color: none;
+    background-color: rgb(4, 16, 37);
   }
+
   .ItemClicked {
     color: white;
     background-color: rgb(57, 121, 207);
     &:hover {
-      color: white;
+      background-color: rgb(57, 121, 207);
     }
   }
+
   /* disable样式 */
   .disable {
     color: gray;
     cursor: not-allowed;
+    &:hover {
+      background-color: rgb(4, 16, 37);
+    }
   }
 }
 
+.ItemLi {
+  border-radius: 5px;
+}
+.subUl {
+  border-radius: 5px;
+}
 .light {
   color: black;
   background-color: rgb(255, 255, 255);
+
   .subSpanClicked {
     color: rgb(57, 121, 207);
+    &::after {
+      color: rgb(57, 121, 207);
+    }
   }
+
+  /* group li悬浮无效果 */
+  .group:hover {
+    background-color: rgb(255, 255, 255);
+  }
+
   .ItemClicked {
     color: rgb(57, 121, 207);
     background-color: rgba(102, 156, 220, 0.4);
     &:hover {
-      background-color: none;
+      background-color: rgba(102, 156, 220, 0.4);
     }
   }
   /* disable样式 */
   .disable {
     color: rgba(0, 0, 0, 0.2);
     cursor: not-allowed;
+    &:hover {
+      background-color: white;
+    }
   }
-}
-
-/* disable样式 */
-.disable {
-  color: rgba(0, 0, 0, 0.2);
-  cursor: not-allowed;
 }
