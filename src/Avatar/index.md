@@ -9,31 +9,23 @@ toc: content
 
 用来代表用户或事物，支持图片展示。
 
-## API
-
-| 属性      | 说明           | 类型            | 默认值 |
-| --------- | -------------- | --------------- | ------ |
-| className | --             | string          | --     |
-| AvatarImg | 设置头像的值   | string          | --     |
-| size      | 设置头像的大小 | number          | 40px   |
-| shape     | 指定头像的形状 | circle          | square |
-| children  | --             | React.ReactNode | --     |
-
 ## 代码演示
 
+### circle
+
 ```tsx
-import React from 'react';
 import { Avatar } from 'RomanticUI';
 
 export default () => (
-  <Avatar shape="circle" size="40px">
-    <img src="https://avatars.githubusercontent.com/u/111177624?v=4" />
-  </Avatar>
+  <Avatar
+    shape="circle"
+    size="40px"
+    AvatarImg="https://avatars.githubusercontent.com/u/111177624?v=4"
+  ></Avatar>
 );
 ```
 
 ```tsx
-import React from 'react';
 import { Avatar } from 'RomanticUI';
 
 export default () => (
@@ -46,7 +38,6 @@ export default () => (
 ```
 
 ```tsx
-import React from 'react';
 import { Avatar } from 'RomanticUI';
 
 export default () => (
@@ -58,8 +49,9 @@ export default () => (
 );
 ```
 
+### square
+
 ```tsx
-import React from 'react';
 import { Avatar } from 'RomanticUI';
 
 export default () => (
@@ -70,3 +62,13 @@ export default () => (
   ></Avatar>
 );
 ```
+
+## API
+
+| 属性      | 说明           | 类型            | 默认值 |
+| --------- | -------------- | --------------- | ------ |
+| className | --             | string          | --     |
+| AvatarImg | 设置头像的值   | string          | --     |
+| size      | 设置头像的大小 | number          | 40px   |
+| shape     | 指定头像的形状 | circle          | square |
+| children  | --             | React.ReactNode | --     |
