@@ -9,16 +9,6 @@ toc: content
 
 ## 代码演示
 
-## API
-
-| 属性     | 说明         | 类型    | 默认值  |
-| -------- | ------------ | ------- | ------- |
-| step     | 当前的进度   | int     | 0       |
-| total    | 总进度       | int     | -       |
-| color    | 颜色         | string  | -       |
-| isSmall  | 是否短进度条 | boolean | false   |
-| isCircle | 是否圆形     | boolean | - false |
-
 ## ProgressBar
 
 ### 常规:
@@ -29,11 +19,11 @@ import { ProgressBar } from 'RomanticUI';
 
 export default () => (
   <div>
-    <ProgressBar step={50} color={'lightblue'} total={100} showInfo={true} />
+    <ProgressBar percent={20} color={'lightblue'} showInfo={true} />
 
-    <ProgressBar step={70} color={'green'} total={100} showInfo={true} />
+    <ProgressBar percent={40} color={'green'} showInfo={true} />
 
-    <ProgressBar step={80} color={'red'} total={100} showInfo={true} />
+    <ProgressBar percent={80} color={'red'} showInfo={true} />
   </div>
 );
 ```
@@ -46,11 +36,11 @@ import { ProgressBar } from 'RomanticUI';
 
 export default () => (
   <div>
-    <ProgressBar isSmall={true} step={50} color={'lightblue'} total={100} showInfo={true} />
+    <ProgressBar isSmall={true} percent={20} color={'lightblue'} showInfo={true} />
 
-    <ProgressBar isSmall={true} step={70} color={'green'} total={100} showInfo={true} />
+    <ProgressBar isSmall={true} percent={40} color={'green'} showInfo={true} />
 
-    <ProgressBar isSmall={true} step={80} color={'red'} total={100} showInfo={true} />
+    <ProgressBar isSmall={true} percent={80} color={'red'} showInfo={true} />
   </div>
 );
 ```
@@ -64,14 +54,59 @@ import { ProgressBar } from 'RomanticUI';
 export default () => (
   <div>
     <p>
-      <ProgressBar isCircle={true} step={20} color={'lightblue'} total={100} showInfo={true} />
+      <ProgressBar isCircle={true} percent={20} color={'lightblue'} showInfo={true} />
     </p>
     <p>
-      <ProgressBar isCircle={true} step={40} color={'lightblue'} total={100} showInfo={true} />
+      <ProgressBar isCircle={true} percent={40} color={'lightblue'} showInfo={true} />
     </p>
     <p>
-      <ProgressBar isCircle={true} step={80} color={'lightblue'} total={100} showInfo={true} />
+      <ProgressBar isCircle={true} percent={50} color={'lightblue'} showInfo={true} />
     </p>
   </div>
 );
 ```
+
+### 动态进度条:
+
+```tsx
+import React, { useState } from 'react';
+import { ProgressBar } from 'RomanticUI';
+export default () => {
+  const [percent, setPercent] = useState(20);
+  const increase = () => {
+    setPercent((prevPercent) => {
+      const newPercent = prevPercent + 10;
+      if (newPercent > 100) {
+        return 100;
+      }
+      return newPercent;
+    });
+  };
+  const decline = () => {
+    setPercent((prevPercent) => {
+      const newPercent = prevPercent - 10;
+      if (newPercent < 0) {
+        return 0;
+      }
+      return newPercent;
+    });
+  };
+  return (
+    <div>
+      <button onClick={increase}>+</button>
+      <button onClick={decline}>-</button>
+      <ProgressBar percent={percent} color={'lightblue'} showInfo={true} />
+    </div>
+  );
+};
+```
+
+## API
+
+| 属性     | 说明             | 类型    | 默认值  |
+| -------- | ---------------- | ------- | ------- |
+| percent  | 当前的进度       | int     | 0       |
+| showinfo | 是否显示进度信息 | boolean | false   |
+| color    | 颜色             | string  | -       |
+| isSmall  | 是否短进度条     | boolean | false   |
+| isCircle | 是否圆形         | boolean | - false |
