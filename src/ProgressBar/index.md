@@ -1,6 +1,6 @@
 ---
 nav: 组件
-group: 通用
+group: 反馈
 mobile: false
 toc: content
 ---
