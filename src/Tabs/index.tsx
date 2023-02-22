@@ -54,7 +54,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
   const direction: TabsDirection =
     tabPosition === 'top' || tabPosition === 'bottom' ? 'row' : 'col';
 
-  const [currentKey, setCurrentKey] = useState<string | undefined>(defaultActiveKey); // 默认值为第一个面板
+  const [currentKey, setCurrentKey] = useState<string | undefined>(activeKey || defaultActiveKey); // 默认值为第一个面板
   const [slip, setSlip] = useState<SlipProps>({
     length: 0,
     maxLength: 0,
@@ -71,7 +71,6 @@ const Tabs: React.FC<TabsProps> = (props) => {
     const { deltaY } = evnet;
 
     setSlip((slip) => {
-      console.log('修改', slip.length);
       const res = slip.length - deltaY;
       if (res <= -slip.maxLength) {
         return {
@@ -108,10 +107,6 @@ const Tabs: React.FC<TabsProps> = (props) => {
 
       // 设置最长滚动长度
       if (direction === 'row') {
-        console.log(
-          '设置',
-          (scrollNav.current?.scrollWidth as number) - (scrollNav.current?.clientWidth as number),
-        );
         setSlip((slip) => {
           return {
             ...slip,
@@ -130,12 +125,6 @@ const Tabs: React.FC<TabsProps> = (props) => {
           };
         });
       }
-      return () =>
-        (viewNav.current as HTMLDivElement).removeEventListener(
-          'wheel',
-          (e) => throttleWheel(e),
-          false,
-        );
     }
   }, []);
 

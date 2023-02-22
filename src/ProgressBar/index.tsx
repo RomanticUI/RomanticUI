@@ -5,8 +5,7 @@ export interface IProgressProps {
   // prefixCls 为了以后样式统一设置的 classname
 
   prefixCls?: string;
-  step?: number;
-  total?: number;
+  percent?: number;
   showInfo?: boolean;
   color?: string;
   isSmall?: boolean;
@@ -33,7 +32,7 @@ const validIsCircle = (isCircle: boolean | undefined) => {
 /**
  * bin  处理 progressNumber
  */
-const validProgress = (progress: number | undefined) => {
+const validPercent = (progress: number | undefined) => {
   //当你的参数定义了 number 等类型，你必须对 !progress 的时候处理，不然 ts 会提示你错误。
   if (!progress || progress < 0) {
     return 0;
@@ -42,19 +41,6 @@ const validProgress = (progress: number | undefined) => {
   }
 
   return progress;
-};
-
-/**
- * @bin 除法处理成0-100的整数
- * @param step
- * @param total
- */
-const percentDeal = (step: number | undefined, total: number | undefined) => {
-  if (!step || !total) {
-    return 0;
-  }
-
-  return (step / total) * 100;
 };
 
 /**
@@ -71,7 +57,7 @@ class ProgressBar extends Component<IProgressProps> {
   render() {
     // 把需要的值先从 this.props 中取出来
     // restProps 扩充参数用
-    const { prefixCls, step, total, isSmall, isCircle, showInfo, color, ...restProps } = this.props;
+    const { prefixCls, percent, isSmall, isCircle, showInfo, color, ...restProps } = this.props;
 
     /**
      * percent 百分比
@@ -79,15 +65,15 @@ class ProgressBar extends Component<IProgressProps> {
      * progressInfo 提示模块
      * porgress 主模块
      */
-    let percent;
+    let mypercent;
     let text;
     let progressInfo;
     let progress;
     let small;
     let circle;
-    percent = percentDeal(step, total);
+    mypercent = validPercent(percent);
     small = validIsSmall(isSmall);
-    text = parseIntPrecent(validProgress(percent));
+    text = parseIntPrecent(mypercent);
     circle = validIsCircle(isCircle);
     console.log('text', text);
 
@@ -131,7 +117,7 @@ class ProgressBar extends Component<IProgressProps> {
     if (showInfo) {
       progressInfo = (
         <div>
-          <span style={textStyle}>{text}</span>
+          <span style={textStyle}>{text === '100%' ? 'Done ' : text}</span>
         </div>
       );
     }
@@ -161,13 +147,13 @@ class ProgressBar extends Component<IProgressProps> {
 
     progress = (
       <div>
-        {isCircle ? (
+        {circle ? (
           <div className="circle">
             <div className="circle_left ab" style={renderLeftRate(percent)}></div>
             <div className="circle_right ab" style={renderRightRate(percent)}></div>
             <div className="circle_text">
               <span className="name"></span>
-              <span className="value">{percent + '%'}</span>
+              <span className="value">{percent === 100 ? 'done' : percent + '%'}</span>
             </div>
           </div>
         ) : (
