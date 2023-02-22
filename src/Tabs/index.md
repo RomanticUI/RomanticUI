@@ -276,6 +276,26 @@ export default () => {
 
 ## API
 
+### Tabs
+
 | 属性 | 说明 | 类型 | 默认值 |
-| ---- | ---- | ---- | ------ |
-|      |      |      |        |
+| --- | --- | --- | --- |
+| activeKey | 当前激活面板的 key | string | - |
+| centered | 标签居中 | boolean | false |
+| defaultActiveKey | 初始化选择面板的 key，如果没有设置 activeKey | string | 第一个面板 |
+| items | 配置选项内容 | TabItemType | [] |
+| size | 大小，提供 large middle 和 small 三种大小 | string | middle |
+| tabBarExtraContent | tab bar 上额外的元素 | ReactNode \| {left?: ReactNode, right?: ReactNode} | - |
+| tabPosition | 页签位置，可选值有 top right bottom left | string | top |
+| type | 页签的基本样式，可选 line、card | string | line |
+| onTabClick | tab 被点击的回调 | function(key: string, event: MouseEvent) | - |
+| onChange | 切换面板的回调 | function(activeKey) {} | - |
+
+### TabItemType
+
+| 属性     | 说明             | 类型      | 默认值 |
+| -------- | ---------------- | --------- | ------ |
+| disabled | 禁用某一项       | boolean   | false  |
+| key      | 对应             | activeKey | string |
+| label    | 选项卡头显示文字 | ReactNode | -      |
+| children | 选项卡头显示内容 | ReactNode | -      |
