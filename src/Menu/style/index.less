@@ -1,10 +1,9 @@
 //menu默认导航样式：顶级导航
-* {
+.MenuBox {
   box-sizing: border-box;
   ul {
     width: 100%;
     list-style: none; //取消默认装饰
-    background-color: white;
   }
   li {
     height: 45px;
@@ -184,6 +183,9 @@
     &::after {
       color: white;
     }
+  }
+  .subUl {
+    padding: 0;
   }
 
   /* group li悬浮无效果 */
