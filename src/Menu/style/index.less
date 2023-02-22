@@ -2,12 +2,14 @@
 * {
   box-sizing: border-box;
   ul {
+    width: 100%;
     list-style: none; //取消默认装饰
     background-color: white;
   }
   li {
     height: 45px;
     list-style: none; //取消默认装饰
+    cursor: pointer; //鼠标样式指针
   }
   span {
     display: inline-block;
@@ -17,7 +19,6 @@
 
 .main {
   //组件基本样式
-  color: black;
   li {
     width: auto;
     // flex-grow: 1;
@@ -39,28 +40,30 @@
 
   //topUl下的首个Menu要绝对定位
   > li {
-    //子绝父相
-    position: relative;
     width: auto;
     > div {
-      position: absolute;
-      left: 0;
-      z-index: 1;
-      transform: scaleY(-0);
+      //子绝父相
+      position: relative;
 
-      //隐藏
-      opacity: 0;
-      transition: ease-in-out 0.1s;
+      > ul {
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        //隐藏
+        transform: scaleY(-0);
+        opacity: 0;
+        transition: ease-in-out 0.1s;
+      }
 
       > div {
         height: auto;
         color: bisque;
       }
-    }
-    &:hover {
-      > div {
-        transform: scaleY(1);
-        opacity: 1;
+      &:hover {
+        > ul {
+          transform: scaleY(1);
+          opacity: 1;
+        }
       }
     }
   }
@@ -70,7 +73,7 @@
 .ItemLi {
   border-radius: 3px;
   &:hover {
-    background-color: rgb(165, 165, 165);
+    background-color: rgba(165, 165, 165, 0.3);
   }
 }
 
@@ -88,4 +91,59 @@
     justify-content: flex-start;
     color: rgba(138, 138, 138, 0.8);
   }
+}
+
+.subSpanClicked {
+  color: rgb(57, 121, 207);
+}
+
+/* theme相关 */
+.night {
+  color: rgba(255, 255, 255, 0.65);
+  background-color: rgb(4, 16, 37);
+  .subSpanClicked {
+    color: white;
+  }
+  /* night下悬浮无色 */
+  .ItemLi {
+    background-color: none;
+  }
+  .ItemClicked {
+    color: white;
+    background-color: rgb(57, 121, 207);
+    &:hover {
+      color: white;
+    }
+  }
+  /* disable样式 */
+  .disable {
+    color: gray;
+    cursor: not-allowed;
+  }
+}
+
+.light {
+  color: black;
+  background-color: rgb(255, 255, 255);
+  .subSpanClicked {
+    color: rgb(57, 121, 207);
+  }
+  .ItemClicked {
+    color: rgb(57, 121, 207);
+    background-color: rgba(102, 156, 220, 0.4);
+    &:hover {
+      background-color: none;
+    }
+  }
+  /* disable样式 */
+  .disable {
+    color: rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+  }
+}
+
+/* disable样式 */
+.disable {
+  color: rgba(0, 0, 0, 0.2);
+  cursor: not-allowed;
 }

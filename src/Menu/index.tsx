@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useRef, useState } from 'react';
 import './style/index.less';
 
 interface SingleItem {
@@ -7,77 +7,78 @@ interface SingleItem {
   icon?: any;
   children?: AllItems;
   type?: string;
-  handleSonCheck?: React.Dispatch<React.SetStateAction<boolean>>;
+  disable?: boolean;
 }
 
 type AllItems = Array<SingleItem>;
 
-type MenuProps = { mode?: string; items: AllItems; isTop?: boolean };
+type MenuProps = { mode?: string; items: AllItems; isTop?: boolean; theme?: 'light' | 'night' };
 
-const SubMenu: React.FC<MenuProps> = ({ items, isTop = false, ...others }: MenuProps) => {
-  useEffect(() => {}, []);
-
+const SubMenu: React.FC<SingleItem> = ({
+  label,
+  optionKey,
+  children,
+  type,
+  disable = false,
+  ...others
+}: SingleItem) => {
   const [sonCheck, setSoncheck] = useState<boolean>(false);
+  //   /* 子组件被点击后通知父组件——submenu */
+  //   (() => {
+  //     if (handleSonCheck) {
+  //       sonCheck! ? handleSonCheck!(true) : handleSonCheck!(false);
+  //     }
+  //   })();
 
-  return (
-    <div className="main">
-      <ul className={isTop ? 'topUl' : 'subUl'}>
-        {/* {items.map((curr, index) => {
-          return (
-            
-            <li key={curr.key}>
-              <div>
-                <span>{curr.label}</span>
+  /* 使用ref绑定span */
+  const spanRef = useRef<HTMLSpanElement>(null);
 
-                {curr.childern ? <SubMenu items={curr.childern} isTop={false}></SubMenu> : ""}
-              </div>
-            </li>
-          );
-        })} */}
-        {items.map((curr, index) => {
-          //   console.log(curr.key);
-          return curr.children ? (
-            // 如果type为group 就不生成span,并且li类为group
-            curr.type == 'group' ? (
-              <li className="group">
-                <span>{curr.label}</span>
-                <SubMenu items={curr.children!} />
-              </li> /* 否则生成span */
-            ) : (
-              <li key={curr.optionKey}>
-                <span>{curr.label}</span>
-                <SubMenu items={curr.children!} />
-              </li>
-            )
-          ) : (
-            <MenuItem {...curr} />
-          );
-        })}
-      </ul>
-    </div>
-  );
-};
-
-const MenuItem: React.FC<SingleItem> = (props) => {
-  // const Clicked:(clickedName:string)=>void=(clickedName)=>{
-  //   clickedName==key?
-  // }
-
-  let { label, optionKey, ...others } = props;
-  console.log(props);
   return (
     <Consumer>
       {(value) => {
-        // console.log(value);
-        // console.log(key);
         return (
-          <li
-            key={optionKey!}
-            className="ItemLi"
-            onClick={() => value.changeKey!(optionKey!)}
-            style={{ backgroundColor: optionKey == value.keyCked ? 'red' : '' }}
-          >
-            <span>{label}</span>
+          /* 判断是否是禁用样式 */
+          <li key={optionKey} className={disable ? 'disable' : ''}>
+            {/* 如果是disable 生成无交互元素 */}
+
+            {disable ? (
+              <div className={type == 'group' ? 'main group' : 'main'}>
+                <span>{label}</span>
+              </div>
+            ) : (
+              <div
+                className={type == 'group' ? 'main group' : 'main'}
+                onClick={() => {
+                  value.changeKey_Sub!(optionKey!);
+                }}
+              >
+                <span
+                  ref={spanRef}
+                  className={optionKey == value.keyCked_Sub ? 'subSpanClicked' : ''}
+                >
+                  {label}
+                </span>
+                <ul className={'subUl' + ' ' + value.theme}>
+                  {children
+                    ? children!.map((curr, index) => {
+                        //   console.log(curr.key);
+                        return curr.children ? (
+                          // 如果type为group 就不生成span,并且li类为group
+                          curr.type == 'group' ? (
+                            <SubMenu {...curr} />
+                          ) : (
+                            /* 否则生成span */
+                            <SubMenu {...curr} />
+                          )
+                        ) : (
+                          /* 传入handle函数，当子组件被点击后通知父组件 */
+                          <MenuItem {...curr} />
+                        );
+                      })
+                    : ''}
+                </ul>
+              </div>
+            )}
           </li>
         );
       }}
@@ -85,12 +86,68 @@ const MenuItem: React.FC<SingleItem> = (props) => {
   );
 };
 
+const MenuItem: React.FC<SingleItem> = (props) => {
+  let { label, optionKey, disable = false, ...others } = props;
+
+  /* 鼠标点击后的处理函数 */
+  type ConsumerValue = {
+    keyCked_Item: string;
+    changeKey_Item: React.Dispatch<React.SetStateAction<string>> | null;
+  };
+  const ItemClicked: ({ changeKey_Item }: ConsumerValue) => void = ({ changeKey_Item }) => {
+    changeKey_Item!(optionKey!);
+  };
+
+  console.log(props);
+  return (
+    <Consumer>
+      {(value) => {
+        // console.log(value);
+        // console.log(key);
+        // /* 如果当前MenuItem的optionKey不是被点击的keyCked，那么让父SubMenu处于未激活状态 */
+        // if (optionKey != value.keyCked && handleSonCheck) {
+        //   handleSonCheck!(false);
+        // }
+        return (
+          /* 如果是disable 生成无交互元素 */
+          disable ? (
+            <li className="disable">
+              <span>{label}</span>
+            </li>
+          ) : (
+            <li
+              key={optionKey!}
+              className={optionKey == value.keyCked_Item ? 'ItemClicked ItemLi' : 'ItemLi'}
+              onClick={() => ItemClicked(value)}
+            >
+              <span>{label}</span>
+            </li>
+          )
+        );
+      }}
+    </Consumer>
+  );
+};
+
 const { Provider, Consumer } = createContext<{
-  keyCked: string;
-  changeKey: React.Dispatch<React.SetStateAction<string>> | null;
+  keyCked_Item: string;
+  changeKey_Item: React.Dispatch<React.SetStateAction<string>> | null;
+  keyCked_Sub: string;
+  changeKey_Sub: React.Dispatch<React.SetStateAction<string>> | null;
+  themeStyle?: {
+    backcolor: string;
+    clickedFontClor: string;
+    clickedBackClor: string;
+  };
+  theme: 'light' | 'night';
 }>({} as any);
 
-const Menu: React.FC<MenuProps> = ({ items, isTop = true, ...others }: MenuProps) => {
+const Menu: React.FC<MenuProps> = ({
+  items,
+  isTop = true,
+  theme = 'light',
+  ...others
+}: MenuProps) => {
   //   const item: MenuProps = [
   //     { label: 'anc', key: 'aaa', childern: [{ label: 'anc', key: 'aaa' }] },
   //     { label: 'anc', key: 'aaa', childern: [{ label: 'anc', key: 'aaa' }] },
@@ -98,42 +155,36 @@ const Menu: React.FC<MenuProps> = ({ items, isTop = true, ...others }: MenuProps
 
   useEffect(() => {}, []);
 
-  const [keyCked, changeKey] = useState('');
+  const [keyCked_Item, changeKey_Item] = useState('');
+  const [keyCked_Sub, changeKey_Sub] = useState('');
+
+  /* 根据theme得到主题样式 */
+  //   const themeStyle = theme == "light" ? theme_light : theme_night;
 
   return (
-    // <div className="main">
-    //   <ul className={isTop ? 'topUl' : 'subUl'}>
-    //     {items.map((curr, index) => {
-    //       return (
-    //         <li key={curr.key}>
-    //           <div>
-    //             <span>{curr.label}</span>
-
-    //             {curr.childern ? <Menu items={curr.childern} isTop={false}></Menu> : ''}
-    //           </div>
-    //         </li>
-    //       );
-    //     })}
-    //   </ul>
-    // </div>
-    <Provider value={{ keyCked, changeKey }}>
+    <Provider value={{ keyCked_Item, changeKey_Item, keyCked_Sub, changeKey_Sub, theme }}>
       <div className="MenuBox main">
-        <ul className={isTop ? 'topUl' : 'subUl'}>
+        <ul className={'topUl' + ' ' + theme}>
           {items.map((curr, index) => {
             // console.log({ ...curr });
-            return curr.children ? (
-              <li key={curr.optionKey}>
-                <span>{curr.label}</span>
-                <SubMenu items={curr.children!} />
-              </li>
-            ) : (
-              <MenuItem {...curr} />
-            );
+            return <SubMenu {...curr} />;
           })}
         </ul>
       </div>
     </Provider>
   );
+};
+
+const theme_night = {
+  backcolor: 'rgb(4,16,37)',
+  clickedFontClor: 'rgb(209,217,224)',
+  clickedBackClor: 'rgb(22,121,249)',
+};
+
+const theme_light = {
+  backcolor: 'rgb(0,0,0)',
+  clickedFontClor: 'rgba(102,156,220,0.4)',
+  clickedBackClor: 'rgb(57, 121, 207)',
 };
 
 export default Menu;
