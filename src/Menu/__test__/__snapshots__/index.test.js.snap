@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Divider test test case1 for night 1`] = `
+<div
+  class="MenuBox main"
+>
+  <ul
+    class="subUl night horizontal top"
+  >
+    <li
+      class=""
+    >
+      <div
+        class="main"
+      >
+        <span
+          class=""
+        >
+          Navigation One
+        </span>
+        <ul
+          class="subUl night"
+        />
+      </div>
+    </li>
+    <li
+      class=""
+    >
+      <div
+        class="main"
+      >
+        <span
+          class=""
+        >
+          Navigation Two
+        </span>
+        <ul
+          class="subUl night"
+        >
+          <li
+            class="ItemLi"
+          >
+            <span>
+              Option 1
+            </span>
+          </li>
+          <li
+            class="ItemLi"
+          >
+            <span>
+              Option 2
+            </span>
+          </li>
+          <li
+            class="ItemLi"
+          >
+            <span>
+              Option 3
+            </span>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li
+      class=""
+    >
+      <div
+        class="main"
+      >
+        <span
+          class=""
+        >
+          Navigation Three - Submenu-kkkkkkk
+        </span>
+        <ul
+          class="subUl night"
+        >
+          <li
+            class=" group"
+          >
+            <div
+              class="main"
+            >
+              <span
+                class=""
+              >
+                Item 1
+              </span>
+              <ul
+                class="subUl night"
+              >
+                <li
+                  class="ItemLi"
+                >
+                  <span>
+                    Option 4
+                  </span>
+                </li>
+                <li
+                  class="ItemLi"
+                >
+                  <span>
+                    Option 5
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li
+            class=" group"
+          >
+            <div
+              class="main"
+            >
+              <span
+                class=""
+              >
+                Item 2
+              </span>
+              <ul
+                class="subUl night"
+              >
+                <li
+                  class="ItemLi"
+                >
+                  <span>
+                    Option 6
+                  </span>
+                </li>
+                <li
+                  class="ItemLi"
+                >
+                  <span>
+                    Option 7
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li
+      class=""
+    >
+      <div
+        class="main"
+      >
+        <span
+          class=""
+        >
+          alipay
+        </span>
+        <ul
+          class="subUl night"
+        />
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Divider test test case1 for solid 1`] = `
+<div
+  class="MenuBox main"
+>
+  <ul
+    class="subUl night vertical top"
+  >
+    <li
+      class=""
+    >
+      <div
+        class="main"
+      >
+        <span
+          class=""
+        >
+          Navigation One
+        </span>
+        <ul
+          class="subUl night"
+        />
+      </div>
+    </li>
+    <li
+      class=""
+    >
+      <div
+        class="main"
+      >
+        <span
+          class=""
+        >
+          Navigation Two
+        </span>
+        <ul
+          class="subUl night"
+        >
+          <li
+            class="ItemLi"
+          >
+            <span>
+              Option 1
+            </span>
+          </li>
+          <li
+            class="ItemLi"
+          >
+            <span>
+              Option 2
+            </span>
+          </li>
+          <li
+            class="ItemLi"
+          >
+            <span>
+              Option 3
+            </span>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li
+      class=""
+    >
+      <div
+        class="main"
+      >
+        <span
+          class=""
+        >
+          Navigation Three - Submenu
+        </span>
+        <ul
+          class="subUl night"
+        >
+          <li
+            class=" group"
+          >
+            <div
+              class="main"
+            >
+              <span
+                class=""
+              >
+                Item 1
+              </span>
+              <ul
+                class="subUl night"
+              >
+                <li
+                  class="ItemLi"
+                >
+                  <span>
+                    Option 4
+                  </span>
+                </li>
+                <li
+                  class="ItemLi"
+                >
+                  <span>
+                    Option 5
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li
+            class=" group"
+          >
+            <div
+              class="main"
+            >
+              <span
+                class=""
+              >
+                Item 2
+              </span>
+              <ul
+                class="subUl night"
+              >
+                <li
+                  class="ItemLi"
+                >
+                  <span>
+                    Option 6
+                  </span>
+                </li>
+                <li
+                  class="ItemLi"
+                >
+                  <span>
+                    Option 7
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li
+      class=""
+    >
+      <div
+        class="main"
+      >
+        <span
+          class=""
+        >
+          alipay
+        </span>
+        <ul
+          class="subUl night"
+        />
+      </div>
+    </li>
+  </ul>
+</div>
+`;

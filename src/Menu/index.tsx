@@ -45,8 +45,8 @@ const SubMenu: React.FC<SingleItem> = ({
                   ? 'disable group'
                   : 'disable'
                 : type == 'group'
-                ? ' group'
-                : ''
+                  ? ' group'
+                  : ''
             }
           >
             {/* 如果是disable 生成无交互元素 */}
@@ -71,20 +71,20 @@ const SubMenu: React.FC<SingleItem> = ({
                 <ul className={'subUl' + ' ' + value.theme}>
                   {children
                     ? children!.map((curr, index) => {
-                        //   console.log(curr.key);
-                        return curr.children ? (
-                          // 如果type为group 就不生成span,并且li类为group
-                          curr.type == 'group' ? (
-                            <SubMenu {...curr} />
-                          ) : (
-                            /* 否则生成span */
-                            <SubMenu {...curr} />
-                          )
+                      //   console.log(curr.key);
+                      return curr.children ? (
+                        // 如果type为group 就不生成span,并且li类为group
+                        curr.type == 'group' ? (
+                          <SubMenu {...curr} key={curr.label} />
                         ) : (
-                          /* 传入handle函数，当子组件被点击后通知父组件 */
-                          <MenuItem {...curr} />
-                        );
-                      })
+                          /* 否则生成span */
+                          <SubMenu {...curr} key={curr.label} />
+                        )
+                      ) : (
+                        /* 传入handle函数，当子组件被点击后通知父组件 */
+                        <MenuItem {...curr} key={curr.label} />
+                      );
+                    })
                     : ''}
                 </ul>
               </div>
@@ -108,7 +108,7 @@ const MenuItem: React.FC<SingleItem> = (props) => {
     changeKey_Item!(optionKey!);
   };
 
-  console.log(props);
+  // console.log(props);
   return (
     <Consumer>
       {(value) => {
@@ -153,7 +153,7 @@ const Menu: React.FC<MenuProps> = ({
   mode = 'horizontal',
   ...others
 }: MenuProps) => {
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const [keyCked_Item, changeKey_Item] = useState('');
   const [keyCked_Sub, changeKey_Sub] = useState('');
@@ -165,7 +165,7 @@ const Menu: React.FC<MenuProps> = ({
         <ul className={'subUl' + ' ' + theme + ' ' + mode + ' ' + 'top'}>
           {items.map((curr, index) => {
             // console.log({ ...curr });
-            return <SubMenu {...curr} />;
+            return <SubMenu {...curr} key={index} />;
           })}
         </ul>
       </div>
