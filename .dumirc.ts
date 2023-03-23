@@ -17,8 +17,8 @@ Powered by Romantic team`,
       github: 'https://github.com/RomanticUI/RomanticUI',
     },
   },
+  extraBabelPresets: ['@babel/preset-react'],
   ...(process.env.NODE_ENV === 'development' ? {} : { ssr: {} }),
-
   //设置域名前缀
   //   sitemap: { hostname: 'https://d.umijs.org' },
 });
