@@ -1,7 +1,6 @@
 /*
   规范commit日志
   https://commitlint.js.org
-  sss
 */
 
 const types = [
