@@ -29,6 +29,7 @@ export interface ColumnProps {
 
 type SortOrderType = 'ascend' | 'descend' | null;
 
+// 导出
 export interface RowSelectionProps {
   type: 'checkbox' | 'radio'; // 单选或多选
   onChange: (selectedRowKeys, selectedRows, info: { type }) => void; // 选中项发生变化时的回调
