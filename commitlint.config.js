@@ -1,6 +1,7 @@
 /*
   规范commit日志
   https://commitlint.js.org
+  yayaya
 */
 
 const types = [
