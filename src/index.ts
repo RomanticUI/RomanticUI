@@ -1,5 +1,6 @@
 export { default as Avatar } from './Avatar';
 export { default as Divider } from './Divider';
+export * as Word from './Docx';
 export { default as Menu, type AllItems } from './Menu';
 export { default as ProgressBar } from './ProgressBar';
 export { default as Spin } from './Spin';

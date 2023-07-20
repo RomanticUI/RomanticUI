@@ -19,12 +19,12 @@
     "noImplicitAny": true, // 不允许隐式的any类型
     "target": "es6", // 目标语言的版本
     "lib": ["DOM", "ES2017"], // 引入ES的功能库，比如想在项目中用js中Set，Map等新的数据结构，或promise等，那要在lib中引入es2015
-    "skipLibCheck": true, // 跳过类库检查\
+    "skipLibCheck": true, // 跳过类库检查
 
     "allowJs": true // 允许编译器编译JS，JSX文件
     //   "strict": true,
   },
 
-  "include": ["src"],
+  "include": ["src", "image.d.ts"],
   "exclude": ["node_modules", "generators"]
 }

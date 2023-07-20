@@ -1,4 +1,6 @@
 import { CSSProperties, ReactNode } from 'react';
+
+// 整体表格
 export interface TableProps {
   bordered: boolean; // 是否展示外边框和列边框
   columns: ColumnProps[];
@@ -15,19 +17,24 @@ export interface TableProps {
   className: string;
 }
 
+// 列
 export interface ColumnProps {
   align: left | right | center;
   title: string;
   dataIndex: string;
-  defaultSortOrder: ascend | descend; // 排序顺序
   key: string;
   render?: (text, record, index) => ReactNode;
+  // 筛选
+  filers?: filersProps;
+  onFillter?: (value: string, record: any) => any;
+  // 排序顺序
   sortDirections?: Array<SortOrderType>;
   sortOrder?: SortOrderType;
   sorter?: function | boolean;
 }
 
 type SortOrderType = 'ascend' | 'descend' | null;
+type filersProps = Array<{ text: string; value: string }>;
 
 // 导出
 export interface RowSelectionProps {

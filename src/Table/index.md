@@ -330,7 +330,70 @@ for (let i = 0; i < 46; i++) {
 }
 
 export default () => {
-  const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('radio');
+  const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
+  return (
+    <>
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowSelection={{
+          type: selectionType,
+        }}
+      ></Table>
+    </>
+  );
+};
+```
+
+### 排序
+
+```tsx
+import { useState } from 'react';
+import { Table } from 'RomanticUI';
+const columns = [
+  {
+    title: '姓名',
+    dataIndex: 'name',
+    key: 'name',
+    sortDirections: ['ascend', 'descend'],
+    sortOrder: 'descend',
+    sorter: false,
+  },
+  {
+    title: '年龄',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: '住址',
+    dataIndex: 'address',
+    key: 'address',
+  },
+];
+
+const data = [
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 34,
+    address: 'Sydney No. 1 Lake Park',
+  },
+];
+
+export default () => {
+  const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
   return (
     <>
       <Table
