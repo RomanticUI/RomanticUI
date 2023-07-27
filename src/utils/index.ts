@@ -27,4 +27,29 @@ function throttle(func: Function, delay: number) {
     }
   };
 }
-export { judgeIsOverFlow, throttle };
+function rotateWatermark(
+  ctx: CanvasRenderingContext2D,
+  rotateX: number,
+  rotateY: number,
+  rotate: number,
+) {
+  //中心为原点
+  ctx.translate(rotateX, rotateY);
+  ctx.rotate((Math.PI / 180) * Number(rotate));
+  ctx.translate(-rotateX, -rotateY);
+}
+function getPixelRatio() {
+  return window.devicePixelRatio || 1;
+}
+const reRendering = (mutation: MutationRecord, watermarkElement?: HTMLElement) => {
+  let flag = false;
+  if (mutation.removedNodes.length) {
+    flag = Array.from(mutation.removedNodes).some((node) => node === watermarkElement);
+  }
+  if (mutation.type === 'attributes' && mutation.target === watermarkElement) {
+    flag = true;
+  }
+  return flag;
+};
+
+export { judgeIsOverFlow, throttle, reRendering, getPixelRatio, rotateWatermark };
