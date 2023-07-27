@@ -9,6 +9,8 @@ toc: content
 
 ## 代码演示
 
+### 纯文字
+
 ```tsx
 import { Watermark } from 'RomanticUI';
 
@@ -18,6 +20,8 @@ export default () => (
   </Watermark>
 );
 ```
+
+### 多行文字
 
 ```tsx
 import { Watermark } from 'RomanticUI';
@@ -29,6 +33,8 @@ export default () => (
 );
 ```
 
+### 图片水印
+
 ```tsx
 import { Watermark } from 'RomanticUI';
 
@@ -38,12 +44,6 @@ export default () => (
   </Watermark>
 );
 ```
-
-## API
-
-| 属性 | 说明 | 类型 | 默认值 |
-| ---- | ---- | ---- | ------ |
-|      |      |      |        |
 
 ## API
 
