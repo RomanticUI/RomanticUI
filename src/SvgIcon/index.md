@@ -12,8 +12,7 @@ toc: content
 ### 基础
 
 ```tsx
-import { SvgIcon } from 'RomanticUI';
-export default () => <SvgIcon svgName={'arrow'} nodeAttribute={{ fill: '#fff' }} />;
+// export default () => <SvgIcon svgName={'arrow'} nodeAttribute={{ fill: '#fff' }} />;
 ```
 
 ## API
