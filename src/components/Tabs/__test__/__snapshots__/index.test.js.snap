@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs Test test case1 for basic 1`] = `
+<div
+  class="romantic-tabs romantic-tabs-line romantic-tabs-middle romantic-tabs-top"
+>
+  <div
+    class="romantic-tabs-nav romantic-tabs-nav-partition-top"
+  >
+    <div
+      class="romantic-tabs-nav-wrap"
+      style="transform: translate(0px,0);"
+    >
+      <div
+        class="romantic-tabs-label romantic-tabs-label-active"
+      >
+        Tab 1
+      </div>
+      <div
+        class="romantic-tabs-label"
+      >
+        Tab 2
+      </div>
+      <div
+        class="romantic-tabs-label"
+      >
+        Tab 3
+      </div>
+    </div>
+    <div />
+  </div>
+  <div>
+    <div
+      class="romantic-tabs-content romantic-tabs-content-active"
+    >
+      Content of Tab Pane 1
+    </div>
+    <div
+      class="romantic-tabs-content"
+    >
+      Content of Tab Pane 2
+    </div>
+    <div
+      class="romantic-tabs-content"
+    >
+      Content of Tab Pane 3
+    </div>
+  </div>
+</div>
+`;

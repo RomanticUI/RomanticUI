@@ -1,0 +1,73 @@
+.@{table-prefix-cls} {
+    &-thead {
+        .@{table-prefix-cls}-cell{
+            position: relative;
+            color: rgba(0,0,0,.88);
+            font-weight: 600;
+            background-color: #fafafa;
+        }
+
+        .@{table-prefix-cls}-cell::before {
+            position: absolute;
+            top: 50%;
+            width: 1px;
+            height: 1.6em;
+            background-color: #f0f0f0;
+            transform: translateY(-50%);
+        }
+
+        .@{table-prefix-cls}-controll-functions {
+            float: right;
+        }
+
+        .@{table-prefix-cls}-hover {
+            cursor: pointer;
+        }
+
+        .@{table-prefix-cls}-sort-controll {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .@{table-prefix-cls}-sort-icon-ascend, .@{table-prefix-cls}-sort-icon-descend{
+            // position: absolute;
+            // right: 0;
+            width: 10px;
+            height: 10px;
+            vertical-align: middle;
+            transition: all 0.5s;
+        }
+
+        .@{table-prefix-cls}-sort-icon-descend {
+            transform:rotate(180deg);
+        }
+
+        .@{table-prefix-cls}-sort-icon-chosed {
+            background-color: aqua;
+        }
+
+        // 圆角边框
+        .@{table-prefix-cls}-cell:first-child {
+            border-start-start-radius: 10px;
+        }
+
+        .@{table-prefix-cls}-cell:last-child {
+            border-start-end-radius: 10px;
+        } 
+    }
+
+    // 携带外边框和列边框的情况下
+    &-bordered {
+        .@{table-prefix-cls}-thead {
+            .@{table-prefix-cls}-cell:first-child {
+                border-start-start-radius: 0;
+            }
+    
+            .@{table-prefix-cls}-cell:last-child {
+                border-start-end-radius: 0;
+            } 
+        }
+    }
+}

@@ -13,3 +13,4 @@ export { default as Tabs } from './components/Tabs';
 export { default as Watermark } from './components/WaterMark';
 // hook
 export { default as useSummary } from './hooks/useSummary';
+// 对外暴露的配置

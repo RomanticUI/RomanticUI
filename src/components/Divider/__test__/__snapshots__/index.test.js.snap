@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Divider test test case1 for dashed 1`] = `
+<div
+  class="ro-divider"
+>
+   
+  <div
+    class="ro-divider-outer"
+  >
+    <div
+      class="ro-divider-line ro-divider-outer-dashed"
+    />
+    <div
+      class="ro-divider-content"
+    >
+      text
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Divider test test case1 for solid 1`] = `
+<div
+  class="ro-divider"
+>
+   
+  <div
+    class="ro-divider-outer"
+  >
+    <div
+      class="ro-divider-line ro-divider-outer-undashed"
+    />
+  </div>
+</div>
+`;
