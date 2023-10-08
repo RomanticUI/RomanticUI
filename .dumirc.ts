@@ -1,8 +1,10 @@
-import { defineConfig } from 'dumi';
-import path from 'path';
+import { defineConfig } from 'dumi'
+import path from 'path'
 
 export default defineConfig({
-  favicons: ['https://s1.imagehub.cc/images/2023/02/20/e28db97a308044b70ff79a5d5032928a.png'],
+  favicons: [
+    'https://s1.imagehub.cc/images/2023/02/20/e28db97a308044b70ff79a5d5032928a.png',
+  ],
   //   autoAlias: false,
   //   outputPath: 'docs-dist',
   themeConfig: {
@@ -17,6 +19,8 @@ export default defineConfig({
     socialLinks: {
       github: 'https://github.com/RomanticUI/RomanticUI',
     },
+    showLineNum: true,
+    lastUpdated: true,
   },
   mfsu: false,
   extraBabelPresets: ['@babel/preset-react'],
@@ -37,4 +41,4 @@ export default defineConfig({
   },
   //设置域名前缀
   //   sitemap: { hostname: 'https://d.umijs.org' },
-});
+})
