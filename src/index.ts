@@ -16,5 +16,9 @@ export { default as Table } from './components/Table'
 export { default as Tabs } from './components/Tabs'
 export { default as Watermark } from './components/WaterMark'
 // hook
+export { default as useLatest } from './hooks/useLatest'
+export { default as useMount } from './hooks/useMount'
 export { default as useSummary } from './hooks/useSummary'
+export { default as useUnmount } from './hooks/useUnmount'
+
 // 对外暴露的配置
