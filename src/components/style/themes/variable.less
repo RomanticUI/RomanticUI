@@ -1,0 +1,20 @@
+@theme: default;
+
+@romantic-prefix: romantic;
+
+@html-selector: html;
+
+@outline-fade: 20%;
+
+@{html-selector} {
+  @base-primary: @blue-6;
+  // ----------- Color --------------
+  // >>> Primary
+  --@{romantic-prefix}-primary-color: @blue-6;
+  --@{romantic-prefix}-primary-color-hover: @blue-5;
+  --@{romantic-prefix}-primary-color-active: @blue-7;
+  --@{romantic-prefix}-primary-color-outline: fade(
+    @primary-color,
+    @outline-fade
+  );
+}
